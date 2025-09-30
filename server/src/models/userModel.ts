@@ -4,7 +4,7 @@ import type { User } from '../types/userTypes';
 
 
 // creates new user in database, takes in a user and returns the user
-export async function createNewUserDB(user:User) {
+export async function createNewUserDB(user:User): Promise<User> {
     const newUser = await db('users').insert({...user}, ['id', 'firstname', 'lastname', 'email', 'address', 'phone']);
     return newUser[0];
 }
