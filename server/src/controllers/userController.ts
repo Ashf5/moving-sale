@@ -1,7 +1,7 @@
 
 import { Request, Response } from "express";
 import { compare } from "bcrypt";
-import jwt from 'jsonwebtoken';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import { verifyUserData } from "../helpers/verifyData";
 import { User } from "../types/userTypes";
@@ -81,6 +81,32 @@ export async function loginUser(req: Request, res: Response) {
 
     return res.status(200).json({accessToken: tokens.accessToken})
     
+}
+
+// Refreshes tokens with the refresh token, or returns 401 error
+export async function refreshToken(req:Request, res: Response) {
+    const refreshCookie: string | undefined = req.cookies.refreshToken;
+
+    try {
+        const decoded = jwt.verify(refreshCookie || '', JWT_SECRET) as JwtPayload;
+        const user: User = {id: decoded.id, firstname: decoded.firstname, lastname: decoded.lastname, email: decoded.email, phone: decoded.phone, address: decoded.address}
+        const tokens = createTokens(user);
+        res.cookie("refreshToken", tokens.refreshToken, {
+            httpOnly: true,
+            secure: true,
+            sameSite: "strict",
+            maxAge: 7 * 24 * 60 * 60 * 1000,
+        });
+
+        return res.status(200).json({accessToken: tokens.accessToken})
+
+        
+    }
+    catch (e) {
+        return res.status(401).json({msg: 'invalid refresh token'})
+    }
+    
+
 }
 
 
