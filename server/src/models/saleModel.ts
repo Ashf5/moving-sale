@@ -17,5 +17,5 @@ export async function addItemsDb(items:SaleItem[]) {
 
 export async function getSaleIdFromSeller(sellerId:number) {
     const saleId = await db('sales').select(['id']).where({'seller_id': sellerId}).first();
-    return saleId;
+    return saleId.id;
 }

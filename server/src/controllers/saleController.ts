@@ -1,6 +1,8 @@
 
 import { Request, Response } from "express";
-import { createSaleDb, getSaleIdFromSeller } from "../models/saleModel";
+import { addItemsDb, createSaleDb, getSaleIdFromSeller } from "../models/saleModel";
+import { SaleItem, VerifiedItem } from "../types/saleTypes";
+import { verifyItem } from "../helpers/verifyData";
 
 
 // creates a new sale, only for a verified user
@@ -32,17 +34,42 @@ export async function createSale(req: Request, res: Response) {
 // TODO finish this function, as of now it just returns the sellers sale id
 export async function addSaleItems(req: Request, res: Response) {
 
+    const items = req.body.items;
+    // Get sale id
     const sellerId = req.user?.id as number;
+    let saleId:number;
     try {
-        const saleId = await getSaleIdFromSeller(sellerId);
+        saleId = await getSaleIdFromSeller(sellerId);
         
         if(!saleId) {
             return res.status(404).json({msg: 'No sales found by seller'})
         }
-        return res.status(200).json(saleId);
     }
     catch(e) {
         return res.status(500).json({msg: 'something went wrong'});
+    }
+
+    let verifiedData:SaleItem[] = [];
+    try {
+        for (let item of items) {
+            let verifiedItem:VerifiedItem = await verifyItem({name:item.name, picture:item.picture, price:item.price, note: item.note});
+            verifiedData.push({...verifiedItem, sale_id: saleId})
+        }
+    }
+        
+    catch(e) {
+        return res.status(400).json({msg: 'invalid data received.'});
+    }
+
+    // Add new item 
+    try {
+        const addedItems = await addItemsDb(verifiedData);
+        return res.status(201).json({msg: 'Items Added'});
+
+    }
+    catch(e) {
+        console.log(e)
+        return res.status(500).json({msg: 'Error adding new items'});
     }
     
 }

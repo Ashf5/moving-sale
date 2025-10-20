@@ -2,6 +2,7 @@
 import validator from 'validator';
 import {hash} from 'bcrypt';
 import { User } from '../types/userTypes';
+import { SaleItem, VerifiedItem } from '../types/saleTypes';
 
 
 // a function for verifying user data before creating new user, returns an object of type User or throws an error.
@@ -40,3 +41,23 @@ export async function verifyUserData(firstname: string, lastname: string, passwo
 
 }
 
+
+
+export const verifyItem = async (obj:VerifiedItem):Promise<VerifiedItem> => {
+    if (!obj.name || !obj.price) {
+        throw new Error('missing mandatory price and name')
+    }
+    
+    if(typeof obj.price !== 'number') {
+        throw new Error('price must be a string')
+    } 
+    const payload:VerifiedItem = {name: validator.escape(obj.name), price: obj.price}
+
+    if (obj.picture) payload['picture'] = validator.escape(obj.picture);
+
+    if(obj.note) payload['note'] = validator.escape(obj.note);
+    
+    return payload;
+    
+
+}

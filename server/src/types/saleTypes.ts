@@ -15,3 +15,10 @@ export interface SaleItem {
     sale_id: number,
     note?: string
 }
+
+export interface VerifiedItem {
+    name: string,
+    picture?: null | string,
+    price: number,
+    note?: string
+}
