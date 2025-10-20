@@ -1,6 +1,6 @@
 
 import { Request, Response } from "express";
-import { addItemsDb, createSaleDb, getSaleIdFromSeller } from "../models/saleModel";
+import { addItemsDb, createSaleDb, getSaleIdFromSeller, getSalesPaginatedDb } from "../models/saleModel";
 import { SaleItem, VerifiedItem } from "../types/saleTypes";
 import { verifyItem } from "../helpers/verifyData";
 
@@ -31,7 +31,8 @@ export async function createSale(req: Request, res: Response) {
 }
 
 
-// TODO finish this function, as of now it just returns the sellers sale id
+
+// Adds a list of items into the items database, also gets the user sale id number.
 export async function addSaleItems(req: Request, res: Response) {
 
     const items = req.body.items;
@@ -72,4 +73,20 @@ export async function addSaleItems(req: Request, res: Response) {
         return res.status(500).json({msg: 'Error adding new items'});
     }
     
+}
+
+
+// Gets paginated sales. accepts query params of limit and page.
+export async function getSales(req:Request, res:Response) {
+    const page = Number(req.query.page);
+    const limit = Number(req.query.limit);
+
+    try {
+        const sales = await getSalesPaginatedDb(page, limit);
+        return res.status(200).json(sales);
+    }
+    catch(e) {
+        return res.status(500).json({msg: 'Error fetching sales'});
+    }
+
 }

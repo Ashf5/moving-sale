@@ -2,7 +2,7 @@
 import { Router } from "express";
 import { createNewUser, loginUser, refreshToken } from "../controllers/userController";
 import { verifySeller, verifyUser } from "../middleware/verify";
-import { addSaleItems, createSale } from "../controllers/saleController";
+import { addSaleItems, createSale, getSales } from "../controllers/saleController";
 
 export const router = Router();
 
@@ -15,6 +15,7 @@ router.post('/login', loginUser);
 router.post('/refresh', refreshToken);
 
 // sale routes
+router.get('/sales', getSales);
 
 router.post('/sales', verifySeller, createSale);
 
