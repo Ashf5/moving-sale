@@ -1,6 +1,6 @@
 
 import { Request, Response } from "express";
-import { addItemsDb, createSaleDb, getSaleIdFromSeller, getSalesPaginatedDb } from "../models/saleModel";
+import { addItemsDb, createSaleDb, getItemsDB, getSaleIdFromSeller, getSalesPaginatedDb } from "../models/saleModel";
 import { SaleItem, VerifiedItem } from "../types/saleTypes";
 import { verifyItem } from "../helpers/verifyData";
 
@@ -89,4 +89,20 @@ export async function getSales(req:Request, res:Response) {
         return res.status(500).json({msg: 'Error fetching sales'});
     }
 
+}
+
+
+export async function getItems(req:Request, res:Response) {
+    const id = Number(req.params.saleId);
+    if(!id) {
+        return res.status(400).json({msg: 'invalid saleId provided'});
+    }
+
+    try {
+        const items = await getItemsDB(id);
+        return res.status(200).json(items);
+    }
+    catch(e) {
+        return res.status(500).json({msg: 'Error fetching sale items.'})
+    }
 }

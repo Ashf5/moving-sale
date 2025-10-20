@@ -10,6 +10,12 @@ export async function getSalesPaginatedDb(page=1, limit=10) {
 
 }
 
+// Gets all the items in a sale
+export async function getItemsDB(saleId:number) {
+    const items = await db('items').select(['id', 'name', 'picture', 'price', 'is_active', 'note']).where({sale_id: saleId});
+    return items;
+}
+
 export async function createSaleDb(sale:Sale) {
     const createdSale = await db('sales').insert(sale, ['*']);
     return createdSale[0];

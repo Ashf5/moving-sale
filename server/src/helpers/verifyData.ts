@@ -47,15 +47,15 @@ export const verifyItem = async (obj:VerifiedItem):Promise<VerifiedItem> => {
     if (!obj.name || !obj.price) {
         throw new Error('missing mandatory price and name')
     }
-    
+
     if(typeof obj.price !== 'number') {
         throw new Error('price must be a string')
     } 
-    const payload:VerifiedItem = {name: validator.escape(obj.name), price: obj.price}
+    const payload:VerifiedItem = {name: obj.name, price: obj.price}
 
-    if (obj.picture) payload['picture'] = validator.escape(obj.picture);
+    if (obj.picture) payload['picture'] = obj.picture;
 
-    if(obj.note) payload['note'] = validator.escape(obj.note);
+    if(obj.note) payload['note'] = obj.note;
     
     return payload;
     
