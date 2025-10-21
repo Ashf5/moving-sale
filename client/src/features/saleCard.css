@@ -1,0 +1,38 @@
+
+.sale-card-main {
+    background-color: #f0f2f5;
+    border-radius: 15px;
+    margin: 5px;
+}
+
+.sale-card-info {
+    display: flex;
+    align-items: center;
+    margin: 5px;
+}
+
+.profile-picture-sale {
+    height: 7vh;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    object-fit:cover;
+}
+
+.sale-info-text {
+    margin-left:10px;
+}
+
+.sale-info-text span {
+    font-weight: bolder;
+    font-size: larger;
+}
+
+.sale-card-pictures {
+    padding: 5px;
+}
+
+.sale-item-picture {
+    height: 17vh;
+    margin: 2px;
+    border-radius: 15px;
+}
