@@ -1,4 +1,4 @@
-import Header from "../components/Header/Header"
+
 import SaleCard from "../features/SaleCard"
 
 const images = [
@@ -14,8 +14,7 @@ const profilePicture = 'https://media.istockphoto.com/id/1437816897/photo/busine
 const Homepage:React.FC = () => {
 
     return (
-        <div>
-            <Header message="Active Sales"/>
+        <div className="homepage-main">
             <SaleCard profilePic={profilePicture} sellerName="asher" date="12/12/2025" pictures={images}/>
             <SaleCard profilePic={profilePicture} sellerName="asher" date="12/12/2025" pictures={images}/>
             <SaleCard profilePic={profilePicture} sellerName="asher" date="12/12/2025" pictures={images}/>
