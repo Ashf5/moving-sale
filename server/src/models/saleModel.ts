@@ -4,7 +4,7 @@ import { Sale, SaleItem } from "../types/saleTypes";
 
 // Gets sales, paginated. Defaults to 10. Returns a list of sales, with given paginated instructions.
 export async function getSalesPaginatedDb(page=1, limit=10) {
-    const sales = await db('sales').join('users', 'users.id', 'sales.seller_id').select(['firstname', 'lastname', 'email', 'phone', 'address', 'sales.id', 'date_created']).offset((page - 1 || 0) * (limit || 10)).limit(limit || 10);
+    const sales = await db('sales').join('users', 'users.id', 'sales.seller_id').select(['firstname', 'lastname', 'email', 'phone', 'address', 'profile_picture','sales.id', 'date_created']).offset((page - 1 || 0) * (limit || 10)).limit(limit || 10);
     return sales;
 
 
