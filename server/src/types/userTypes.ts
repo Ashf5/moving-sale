@@ -6,5 +6,6 @@ export type User = {
     password?:string,
     email:string,
     phone?:string,
-    address?:string
+    address?:string,
+    profile_picture?:string
 }
