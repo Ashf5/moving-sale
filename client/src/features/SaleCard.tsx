@@ -7,7 +7,7 @@ interface PropsType {
     profilePic?: string;
     sellerName: string;
     date: string;
-    pictures?: string[]
+    pictures?: (string | null)[]
 }
 
 const SaleCard: React.FC<PropsType> = (props:PropsType) => {
@@ -32,7 +32,7 @@ const SaleCard: React.FC<PropsType> = (props:PropsType) => {
             <div className='sale-card-pictures'>
                 {props.pictures && props.pictures.slice(0, 3).map(
                     (picture) => {
-                    return <img className='sale-item-picture' src={picture} alt='item picture' />
+                    return <img className='sale-item-picture' src={picture || '/missing-photo.jpg'} alt='item picture' />
                 }
                 )}
             </div>
