@@ -3,6 +3,7 @@
     background-color: #f0f2f5;
     border-radius: 15px;
     margin: 5px;
+    max-height: fit-content;
 }
 
 .sale-card-info {
