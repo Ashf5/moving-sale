@@ -1,5 +1,5 @@
 
-import SaleCard from "../features/SaleCard"
+import SaleCard from "../features/SaleCard/SaleCard"
 import { BASE_API_URL } from "../constants";
 import type { Sale } from "../types/saleTypes";
 import './homepage.css'

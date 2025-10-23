@@ -12,6 +12,8 @@
 
 .navbar-option {
     text-align: center;
+    text-decoration: none;
+    color: black;
 }
 
 .homepage-main {
