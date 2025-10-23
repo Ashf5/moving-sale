@@ -5,15 +5,16 @@ import ControlPointOutlinedIcon from '@mui/icons-material/ControlPointOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 
 import './navbar.css'
+import { Link } from 'react-router-dom';
 
 const Navbar:React.FC = () => {
 
     return (
         <div className="navbar">
-            <a className="navbar-option">
+            <Link to={'/'} className="navbar-option">
                 <HomeOutlinedIcon />
                 <br />Home
-            </a>
+            </Link>
 
              <a className="navbar-option">
                 <FavoriteBorderOutlinedIcon /><br />
