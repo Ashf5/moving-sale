@@ -7,6 +7,7 @@ import SaleDetailsCard from "../features/SaleDetailsCard/SaleDetailsCard";
 
 
 import './salepage.css'
+import WideButton from "../components/WideButton/WideButton";
 
 
 
@@ -38,11 +39,17 @@ const SalePage: React.FC = () => {
     }, [])
 
     return (
-        <div>
+        <div className="main-salepage">
             {!accessToken && <div><Link to={'/login'}>Login</Link></div>}
+
             {loading && <div>Loading....</div>}
-            {sale && <><SaleDetailsCard props={sale} />
+
+            {sale && <>
+            <SaleDetailsCard props={sale} />
+            <WideButton text='Manage Sale' handler={(e) => {}}/><br />
+                <WideButton text="Delete Sale" classes={['warning']}/>
             </>}
+
             {accessToken && !sale && <div>Create New SAle</div>}
         </div>
         

@@ -1,4 +1,9 @@
 
+.main-salepage {
+    text-align: center;
+}
+
+
 .sale-info-card-seller {
     /* border: 1px solid black; */
     border-radius: 10px;
@@ -18,4 +23,13 @@
     color: black;
     font-weight: bold;
     font-size: 1.5rem;
+}
+
+@media (min-width : 800px) {
+    .sale-info-card-seller {
+        width: 30%;
+        margin-right: auto;
+        margin-left: auto;
+        font-size:larger;
+    }
 }
