@@ -83,7 +83,8 @@ export async function getSales(req:Request, res:Response) {
 
     try {
         const sales = await getSalesPaginatedDb(page, limit);
-        return res.status(200).json(sales);
+        const responsePayload = {sales, page: page || 1, limit: limit || 10}
+        return res.status(200).json(responsePayload);
     }
     catch(e) {
         return res.status(500).json({msg: 'Error fetching sales'});
