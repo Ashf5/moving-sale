@@ -72,5 +72,11 @@ export async function addItemsDb(items: SaleItem[]) {
 
 export async function getSaleIdFromSeller(sellerId: number) {
     const saleId = await db('sales').select(['id']).where({ 'seller_id': sellerId }).first();
-    return saleId.id;
+    if (saleId) return saleId.id;
+    return undefined;
+}
+
+export async function getSaleDetailsFromSeller(sellerId: number) {
+    const saleData = await db('users').join('sales', 'sales.seller_id', 'users.id').select(['sales.id','date_created', 'users.address', 'users.phone', 'users.email']).where({'users.id': sellerId}).first();
+    return saleData
 }

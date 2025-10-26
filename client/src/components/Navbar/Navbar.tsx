@@ -21,10 +21,10 @@ const Navbar:React.FC = () => {
                 Wishlist
             </a>
 
-             <a className="navbar-option">
+             <Link to={'/sell'} className="navbar-option">
                 <ControlPointOutlinedIcon />
                 <br />Sell
-            </a>
+            </Link>
 
              <a className="navbar-option">
                 <PersonOutlineOutlinedIcon />

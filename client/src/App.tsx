@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar/Navbar";
 import Homepage from "./pages/Homepage";
 import LoginPage from "./pages/Loginpage";
 import { AuthProvider } from "./context/authContext";
+import SalePage from "./pages/salepage";
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
           <Routes>
             <Route path='/' element={<Homepage />} />
             <Route path='/login' element={<LoginPage />} />
+            <Route path="/sell" element={<SalePage />} />
           </Routes>
           <Navbar />
         </AuthProvider>

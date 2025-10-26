@@ -11,3 +11,12 @@ export interface Sale {
     images: (string | null)[]
 }
 
+
+export interface SaleInfo {
+    id: number;
+    date_created: Date;
+    address: string;
+    phone: string;
+    email: string;
+
+}

@@ -2,7 +2,7 @@
 import { Router } from "express";
 import { createNewUser, loginUser, refreshToken } from "../controllers/userController";
 import { verifySeller, verifyUser } from "../middleware/verify";
-import { addSaleItems, createSale, getItems, getSales } from "../controllers/saleController";
+import { addSaleItems, createSale, getItems, getSales, getUserSale } from "../controllers/saleController";
 
 export const router = Router();
 
@@ -18,6 +18,8 @@ router.post('/refresh', refreshToken);
 router.get('/sales/:saleId', getItems);
 
 router.get('/sales', getSales);
+
+router.post('/my-sale', verifySeller, getUserSale);
 
 router.post('/sales', verifySeller, createSale);
 
