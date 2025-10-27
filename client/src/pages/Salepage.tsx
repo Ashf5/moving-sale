@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/authContext";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import type { SaleInfo } from "../types/saleTypes";
 import { BASE_API_URL } from "../constants";
 import SaleDetailsCard from "../features/SaleDetailsCard/SaleDetailsCard";
@@ -55,7 +55,7 @@ const SalePage: React.FC = () => {
 
             {sale && <>
             <SaleDetailsCard props={sale} />
-            <WideButton text='Manage Sale' handler={(e) => {}}/><br />
+            <WideButton text='Manage Sale' handler={() => {}}/><br />
                 <WideButton text="Delete Sale" classes={['warning']}/>
             </>}
 
