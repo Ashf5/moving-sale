@@ -8,6 +8,7 @@ import SaleDetailsCard from "../features/SaleDetailsCard/SaleDetailsCard";
 
 import './salepage.css'
 import WideButton from "../components/WideButton/WideButton";
+import useFetchRefresh from "../hooks/useFetchRefresh";
 
 
 
@@ -15,6 +16,8 @@ const SalePage: React.FC = () => {
     const {accessToken} = useAuth();
     const [sale, setSale] = useState<SaleInfo>();
     const [loading, setLoading] = useState(false)
+
+    const {fetchRefresh} = useFetchRefresh();
 
     useEffect(() => {
         // Get Sale Details
@@ -45,7 +48,15 @@ const SalePage: React.FC = () => {
             setLoading(false)
         }
         fetchData();
-    }, [accessToken,])
+    }, []);
+
+
+    const createHandler = async () => {
+        const data = await fetchRefresh(BASE_API_URL + '/sales', 'POST', {'Content-Type': 'application/json'}, {});
+        if (data.id) {
+            setSale({...data})
+        }
+    }
 
     return (
         <div className="main-salepage">
@@ -60,7 +71,7 @@ const SalePage: React.FC = () => {
                 <WideButton text="Delete Sale" classes={['warning']}/>
             </>}
 
-            {accessToken && !sale && <WideButton classes={['new-sale']} text="Start New Sale"/> }
+            {accessToken && !sale && <WideButton classes={['new-sale']} text="Start New Sale" handler={createHandler}/> }
         </div>
         
     )

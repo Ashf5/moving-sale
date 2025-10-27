@@ -31,7 +31,10 @@ export async function verifySeller(req:Request, res:Response, next:NextFunction)
         if (!req.body.auth) {
             return res.status(400).json({msg: 'Must include auth in body'})
         }
+        
+        
         decoded = jwt.verify(req.body.auth, JWT_SECRET) as User;
+
     }
     catch(e) {
         return res.status(401).json({msg: 'invalid token provided'})
