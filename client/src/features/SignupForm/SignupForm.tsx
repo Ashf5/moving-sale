@@ -1,25 +1,39 @@
 import type React from "react";
 import { BASE_API_URL } from "../../constants";
+import { useAuth } from "../../context/authContext";
+import { useNavigate } from "react-router-dom";
+
+
 
 const SignupForm:React.FC = () => {
+    const {login} = useAuth();
+    const nav = useNavigate();
 
     const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const formData = new FormData(e.currentTarget);
 
-        const response = await fetch(BASE_API_URL + '/testregister', {
+        const response = await fetch(BASE_API_URL + '/users', {
             method: 'POST', 
             body: formData
         });
 
         if (response.status === 201) {
-            alert('successfull!!!')
+            const data = await response.json();
+            if (!data.accessToken) {
+                alert('an error occured')
+                return 
+            }
+            // if login was successful navigate to home
+            login(data.accessToken);
+            nav('/')
+
         }
 
     }
 
     return (
-        <form>
+        <form onSubmit={handleSubmit}>
             <label htmlFor='firstname'>First Name</label><br/>
             <input type="text" name="firstname" placeholder="First Name" required/><br/>
 
@@ -39,7 +53,7 @@ const SignupForm:React.FC = () => {
             <input type="phone" name="phone" placeholder="Phone Number"/><br/>
 
             <label htmlFor="profile">Profile Picture</label><br/>
-            <input type="file" accept="image/*" /><br/>
+            <input type="file" name='profile' accept="image/*" /><br/>
 
             <input type="submit" value='Sign In'/>
         </form>

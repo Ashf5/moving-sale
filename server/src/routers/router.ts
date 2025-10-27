@@ -3,12 +3,26 @@ import { Router } from "express";
 import { createNewUser, loginUser, refreshToken } from "../controllers/userController";
 import { verifySeller, verifyUser } from "../middleware/verify";
 import { addSaleItems, createSale, getItems, getSales, getUserSale } from "../controllers/saleController";
+import multer from 'multer';
+import path from 'path';
 
 export const router = Router();
 
+const storage = multer.diskStorage({
+  destination: "uploads/",
+  filename: (req, file, cb) => {
+    // add random name
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+
+    cb(null, uniqueSuffix + path.extname(file.originalname)); 
+  },
+});
+
+const upload = multer({ storage })
+
 // user routes 
 
-router.post('/users', createNewUser);
+router.post('/users', upload.single('profile'), createNewUser);
 
 router.post('/login', loginUser);
 

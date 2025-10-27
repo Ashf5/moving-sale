@@ -29,14 +29,23 @@ const SalePage: React.FC = () => {
                     auth: accessToken
                 })
             });
-            const parsed = await listData.json();
-            if (parsed.id) {
-                setSale({id:parsed.id, date_created: parsed.date_created, address: parsed.address, phone: parsed.phone, email: parsed.email})
+
+            try {
+                const parsed = await listData.json();
+                if (parsed.id) {
+                    setSale({id:parsed.id, date_created: parsed.date_created, address: parsed.address, phone: parsed.phone, email: parsed.email})
+                }
+                
             }
+            catch (e) {
+                setLoading(false);
+                return;
+            }
+                
             setLoading(false)
         }
         fetchData();
-    }, [])
+    }, [accessToken,])
 
     return (
         <div className="main-salepage">
