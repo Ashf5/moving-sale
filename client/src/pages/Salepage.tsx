@@ -54,12 +54,13 @@ const SalePage: React.FC = () => {
             {loading && <div>Loading....</div>}
 
             {sale && <>
+            
             <SaleDetailsCard props={sale} />
             <WideButton text='Manage Sale' handler={() => {}}/><br />
                 <WideButton text="Delete Sale" classes={['warning']}/>
             </>}
 
-            {accessToken && !sale && <div>Create New Sale</div>}
+            {accessToken && !sale && <WideButton classes={['new-sale']} text="Start New Sale"/> }
         </div>
         
     )
