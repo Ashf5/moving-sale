@@ -6,6 +6,7 @@ import Homepage from "./pages/Homepage";
 import LoginPage from "./pages/Loginpage";
 import { AuthProvider } from "./context/authContext";
 import SalePage from "./pages/salepage";
+import SignupPage from "./pages/Signuppage";
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
           <Routes>
             <Route path='/' element={<Homepage />} />
             <Route path='/login' element={<LoginPage />} />
+            <Route path="/register" element={<SignupPage />} />
             <Route path="/sell" element={<SalePage />} />
           </Routes>
           <Navbar />

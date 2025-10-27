@@ -40,7 +40,7 @@ const SalePage: React.FC = () => {
 
     return (
         <div className="main-salepage">
-            {!accessToken && <div><Link to={'/login'}>Login</Link></div>}
+            {!accessToken && <div className="sale-info-card-seller">You must be signed in <Link to={'/login'}>Login</Link></div>}
 
             {loading && <div>Loading....</div>}
 
@@ -50,7 +50,7 @@ const SalePage: React.FC = () => {
                 <WideButton text="Delete Sale" classes={['warning']}/>
             </>}
 
-            {accessToken && !sale && <div>Create New SAle</div>}
+            {accessToken && !sale && <div>Create New Sale</div>}
         </div>
         
     )
