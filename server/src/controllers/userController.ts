@@ -14,6 +14,7 @@ const JWT_SECRET = process.env.JWT_SECRET as string;
 // creates new user, sets refresh token cookie and returns an access token
 export async function createNewUser(req:Request, res:Response) {
     const {firstname, lastname, password, email, phone, address} = req.body;
+    const profilePicture = req.file;
     
     let user: User;
     try {
@@ -25,7 +26,7 @@ export async function createNewUser(req:Request, res:Response) {
 
     let createdUser: User;
     try {
-        createdUser = await createNewUserDB(user);
+        createdUser = await createNewUserDB({...user, profile_picture: profilePicture?.path});
     }
     catch(e) {
         return res.status(500).json({msg: 'Error while creating new user.'})

@@ -1,0 +1,28 @@
+
+.wide-button {
+    background-color: #1173d4;
+    color: white;
+    border: none;
+    height: 2.0rem;
+    width: 20.5rem;
+    border-radius: 5px;
+    margin: 5px;
+}
+
+.warning {
+    background-color: white;
+    color: red;
+    border: 1px solid red;
+    font-weight: bold;
+}
+
+
+@media (min-width: 800px) {
+    .wide-button {
+        
+        height: 2.8rem;
+        width: 25.5rem;
+        font-size: large;
+    }
+    
+}

@@ -31,8 +31,8 @@ const SaleCard: React.FC<PropsType> = (props:PropsType) => {
 
             <div className='sale-card-pictures'>
                 {props.pictures && props.pictures.slice(0, 3).map(
-                    (picture) => {
-                    return <img className='sale-item-picture' src={picture || '/missing-photo.jpg'} alt='item picture' />
+                    (picture, idx) => {
+                    return <img key={idx} className='sale-item-picture' src={picture || '/missing-photo.jpg'} alt='item picture' />
                 }
                 )}
             </div>

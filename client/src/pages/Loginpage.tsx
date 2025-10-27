@@ -11,7 +11,7 @@ const LoginPage: React.FC = () => {
             <SellIcon sx={{padding:'10px',color:"#1173d4", backgroundColor: '#daecfeff', borderRadius: '5px'}}/>
             <h2>Sign In To Your Account</h2>
             <LoginForm />
-            <p>Not a user? <Link to={'#'}>Sign Up</Link> </p>
+            <p>Not a user? <Link to={'/register'}>Sign Up</Link> </p>
         </div>
     )
 }

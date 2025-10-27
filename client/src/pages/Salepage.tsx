@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/authContext";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import type { SaleInfo } from "../types/saleTypes";
 import { BASE_API_URL } from "../constants";
 import SaleDetailsCard from "../features/SaleDetailsCard/SaleDetailsCard";
 
 
 import './salepage.css'
+import WideButton from "../components/WideButton/WideButton";
 
 
 
@@ -28,22 +29,37 @@ const SalePage: React.FC = () => {
                     auth: accessToken
                 })
             });
-            const parsed = await listData.json();
-            if (parsed.id) {
-                setSale({id:parsed.id, date_created: parsed.date_created, address: parsed.address, phone: parsed.phone, email: parsed.email})
+
+            try {
+                const parsed = await listData.json();
+                if (parsed.id) {
+                    setSale({id:parsed.id, date_created: parsed.date_created, address: parsed.address, phone: parsed.phone, email: parsed.email})
+                }
+                
             }
+            catch (e) {
+                setLoading(false);
+                return;
+            }
+                
             setLoading(false)
         }
         fetchData();
-    }, [])
+    }, [accessToken,])
 
     return (
-        <div>
-            {!accessToken && <div><Link to={'/login'}>Login</Link></div>}
+        <div className="main-salepage">
+            {!accessToken && <div className="sale-info-card-seller">You must be signed in <Link to={'/login'}>Login</Link></div>}
+
             {loading && <div>Loading....</div>}
-            {sale && <><SaleDetailsCard props={sale} />
+
+            {sale && <>
+            <SaleDetailsCard props={sale} />
+            <WideButton text='Manage Sale' handler={() => {}}/><br />
+                <WideButton text="Delete Sale" classes={['warning']}/>
             </>}
-            {accessToken && !sale && <div>Create New SAle</div>}
+
+            {accessToken && !sale && <div>Create New Sale</div>}
         </div>
         
     )
