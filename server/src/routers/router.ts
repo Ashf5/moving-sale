@@ -5,11 +5,18 @@ import { verifySeller, verifyUser } from "../middleware/verify";
 import { addSaleItems, createSale, getItems, getSales, getUserSale } from "../controllers/saleController";
 import multer from 'multer';
 import path from 'path';
+import { fileURLToPath } from "url"
+
+// const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export const router = Router();
 
 const storage = multer.diskStorage({
-  destination: "uploads/",
+  destination: function (req, file, cb) {
+    //__dirname add to join in production?
+    cb(null, path.join(__dirname, "../../../client/public/uploads"));
+  },
   filename: (req, file, cb) => {
     // add random name
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);

@@ -16,6 +16,10 @@
     font-weight: bold;
 }
 
+.new-sale {
+    margin-top: 25vh;
+}
+
 
 @media (min-width: 800px) {
     .wide-button {
